@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '27.0.1'
     defaultConfig {
         applicationId "jp.local.yukichan.mmsp3"
         minSdkVersion 23
@@ -31,5 +31,19 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    // Kotlin
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    // RX
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.2'
 }
