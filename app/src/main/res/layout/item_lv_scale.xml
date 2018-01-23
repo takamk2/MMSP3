@@ -4,14 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="@color/itemNormal"
     android:padding="8dp">
-
-    <TextView
-        android:id="@+id/tvOctave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvName"

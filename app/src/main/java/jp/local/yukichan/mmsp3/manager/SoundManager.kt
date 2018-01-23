@@ -3,15 +3,20 @@ package jp.local.yukichan.mmsp3.manager
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
+import io.reactivex.Observable
 import jp.local.yukichan.mmsp3.controller.ChordController
 import jp.local.yukichan.mmsp3.controller.NoteController
+import jp.local.yukichan.mmsp3.controller.ScaleController
 import jp.local.yukichan.mmsp3.data.Chord
 import jp.local.yukichan.mmsp3.data.Note
+import jp.local.yukichan.mmsp3.data.Scale
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class SoundManager(private val context: Context,
                    private val noteManager: NoteManager,
-                   private val chordManager: ChordManager) {
+                   private val chordManager: ChordManager,
+                   private val scaleManager: ScaleManager) {
 
     private var soundPool: SoundPool? = null
 
@@ -45,6 +50,7 @@ class SoundManager(private val context: Context,
 
         noteManager.noteController = NoteController(this)
         chordManager.chordController = ChordController(this)
+        scaleManager.scaleController = ScaleController(this)
     }
 
     fun play(note: Note, leftVolume: Float = 1f, rightVolume: Float = 1f) {
@@ -66,6 +72,19 @@ class SoundManager(private val context: Context,
             } else {
                 play(note, chordLeftVolume, chordRightVolume)
             }
+        }
+    }
+
+    fun play(scale: Scale,
+             leftVolume: Float = 1f,
+             rightVolume: Float = 1f) {
+        val data = scale.notes.sortedBy { it.id }.toMutableList()
+        data.add(noteManager.getNote(data[0].noteNo, data[0].octave + 1)!!)
+
+        Observable.interval(500, TimeUnit.MILLISECONDS).take(data.size.toLong()).subscribe {
+            val index = it.toInt()
+            val note = data[index]
+            play(note, leftVolume, rightVolume)
         }
     }
 }

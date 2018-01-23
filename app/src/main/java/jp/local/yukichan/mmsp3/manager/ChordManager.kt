@@ -17,10 +17,9 @@ class ChordManager(private val noteManager: NoteManager) {
         initialize()
     }
 
-    // TODO: 必要になったらコメントを外す
-//    fun getChord(baseNote: Note, notes: Set<Note>): Chord? {
-//        return chords.find { it.baseNote == baseNote && it.notes == notes }
-//    }
+    fun getChord(baseNoteNo: Int, noteNos: Set<Int>): Chord? {
+        return chords.find { it.baseNote.noteNo == baseNoteNo && it.getNoteNos() == noteNos }
+    }
 
     private fun initialize() {
         chords.clear()

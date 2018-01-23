@@ -40,5 +40,9 @@ enum class NoteType(@SerializedName("id") val id: Int,
         fun get(note: Note): NoteType {
             return values().find { it.noteNo == note.noteNo && it.symbol != Symbol.Flat }!!
         }
+
+        fun get(note: Note, symbol: Symbol): NoteType {
+            return values().find { it.noteNo == note.noteNo && it.symbol == symbol } ?: get(note)
+        }
     }
 }
